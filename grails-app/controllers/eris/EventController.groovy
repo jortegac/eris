@@ -10,15 +10,9 @@ class EventController {
 			[eventInstanceList: Event.list()]
 		}else {
 			
-			def results = Event.withCriteria {
-				user {
-					eq("id", params.id.toLong())
-				}
-			}
+			def results = Event.findAllByUser(User.get(params.id))
 			
 			[eventInstanceList: results]
-			
-			//[eventInstanceList: Event.findAllWhere(Event.user : params.id)]
 		}
 	}
 	
@@ -37,12 +31,8 @@ class EventController {
 		def eventList = []
 		
 		for (app in appls) {
-			def events = Event.withCriteria {
-				appliance {
-					eq("id", app.id.toLong())
-				}
-			}
-			eventList.add(events)
+			eventList.add(Event.findAllByAppliance(app))
+			
 		}
 		
 		[userEventList: eventList, theuser: u]
