@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>ERIS</title>
+		<title>ERIS - Energy Regulation Intelligent System</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
