@@ -38,8 +38,14 @@
        		</td> 
             <td>${user.dateCreated}</td>
             <td>${user.lastUpdated}</td>
-            <td><g:link action="edit" id="${user.id}">Edit</g:link><br/> 
-            <g:link controller="event" class="create" id="${user.id}" action="create" >New event</g:link></td>
+            <td>
+            	<ul>
+            		<li><g:link action="edit" id="${user.id}">Edit</g:link></li> 
+            		<li><g:link controller="event" class="index" id="${user.id}">View events</g:link></li>
+            		<li><g:link controller="event" class="create" id="${user.id}" action="create">New event</g:link></li>
+            		
+            	</ul>
+           	</td>
                 
         </tr>
         </g:each>        
