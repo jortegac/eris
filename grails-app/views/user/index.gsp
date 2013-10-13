@@ -41,7 +41,7 @@
             <td>
             	<ul>
             		<li><g:link action="edit" id="${user.id}">Edit</g:link></li> 
-            		<li><g:link controller="event" class="index" id="${user.id}">View events</g:link></li>
+            		<li><g:link controller="event" class="report" id="${user.id}">View report</g:link></li>
             		<li><g:link controller="event" class="create" id="${user.id}" action="create">New event</g:link></li>
             		
             	</ul>
