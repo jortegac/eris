@@ -19,20 +19,13 @@ class EventController {
 	def report() {
 		
 		def u = User.get(params.id)
+
+		def appls = Appliance.findAllByUser(u)
 		
-		
-		
-		def appls = Appliance.withCriteria{
-			user {
-				eq("id", params.id.toLong())
-			}
-		}
-			
 		def eventList = []
 		
 		for (app in appls) {
-			eventList.add(Event.findAllByAppliance(app))
-			
+			eventList.add(Event.findAllByAppliance(app))	
 		}
 		
 		[userEventList: eventList, theuser: u]
