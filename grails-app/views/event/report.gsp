@@ -9,13 +9,13 @@
 <div class="nav" role="navigation">
 	<ul>
 		<li><a class="home" href="${createLink(uri: "/", absolute: true)}">Home</a></li>
-		<li><g:link class="create" action="create" >New user</g:link></li>
+		<li><g:link class="create" action="create" >New event</g:link></li>
 	</ul>
 </div>
 <div class="body">
 
-<h1>${theuser}'s appliance usage history</h1>
-
+<h1>${theuser}'s appliance usage history</h1> 
+<br/>
 
 <% def counter = 1 %>
 
@@ -24,12 +24,14 @@
 	<% def dataActivity = [] %>
 	<% def dataConsumption = [] %>
 
-	<h2>${userEvent.appliance.first()}</h2>
+	<h2>${userEvent.appliance.first()}</h2> 
+	<br/>
+	<center>
 	<table>
 		<tr>
-			<td>Activity Level</td>
-			<td>Energy Consumption</td>
-			<td>Time</td>
+			<th>Times used</th>
+			<th>Energy Consumption</th>
+			<th>Time</th>
 		</tr>
 		<g:each in="${userEvent}" var="event">  	
 	    		
@@ -45,14 +47,16 @@
 	    </g:each>
     </table>
 	
-	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesAct}" data="${dataActivity}" trendlines="${new Expando(0:new Expando([color: 'orange', labelInLegend: 'Trend', visibleInLegend: true, type: 'exponential']))}"/>
+	
+	<gvisualization:lineCoreChart elementId="chart${counter}" title="Usage in time" width="${960}" height="${480}" columns="${columnNamesAct}" data="${dataActivity}" trendlines="${new Expando(0:new Expando([color: 'orange', labelInLegend: 'Trend', visibleInLegend: true, type: 'exponential']))}"/>
 	<div id="chart${counter}"></div>	
 	<% counter++ %>
 	
-	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesCon}" data="${dataConsumption}"  
+	<gvisualization:lineCoreChart elementId="chart${counter}" title="Consumption in time" width="${960}" height="${480}" columns="${columnNamesCon}" data="${dataConsumption}"  
 	trendlines="${new Expando(0:new Expando([color: 'orange', labelInLegend: 'Trend', visibleInLegend: true, type: 'exponential']))}" />
 	<div id="chart${counter}"></div>	
 	<% counter++ %>
+	</center>
 	
     </g:each>        
   </div>

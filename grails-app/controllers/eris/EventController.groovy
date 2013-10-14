@@ -31,7 +31,7 @@ class EventController {
 			
 		}
 		
-		def columnNamesAct = [['date', 'Time'], ['number', 'Activity level'] ]
+		def columnNamesAct = [['date', 'Time'], ['number', 'Times used'] ]
 		def columnNamesCon = [['date', 'Time'], ['number', 'Energy consumption'] ] 
 				
 		[userEventList: eventList, theuser: u, columnNamesAct: columnNamesAct, columnNamesCon: columnNamesCon ]
