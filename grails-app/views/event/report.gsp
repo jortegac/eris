@@ -45,11 +45,12 @@
 	    </g:each>
     </table>
 	
-	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesAct}" data="${dataActivity}" />
+	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesAct}" data="${dataActivity}" trendlines="${new Expando(0:new Expando([color: 'orange', labelInLegend: 'Trend', visibleInLegend: true, type: 'exponential']))}"/>
 	<div id="chart${counter}"></div>	
 	<% counter++ %>
 	
-	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesCon}" data="${dataConsumption}"  />
+	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesCon}" data="${dataConsumption}"  
+	trendlines="${new Expando(0:new Expando([color: 'orange', labelInLegend: 'Trend', visibleInLegend: true, type: 'exponential']))}" />
 	<div id="chart${counter}"></div>	
 	<% counter++ %>
 	
