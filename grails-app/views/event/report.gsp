@@ -45,7 +45,7 @@
 	    </g:each>
     </table>
 	
-	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesAct}" data="${dataActivity}"  />
+	<gvisualization:lineCoreChart elementId="chart${counter}" width="${640}" height="${480}" columns="${columnNamesAct}" data="${dataActivity}" />
 	<div id="chart${counter}"></div>	
 	<% counter++ %>
 	
