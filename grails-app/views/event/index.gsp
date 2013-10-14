@@ -29,7 +29,10 @@
             <td>${event.activityLevel}</td>
             <td>${event.energyConsumption}</td>
             <td>${event.time}</td>
-            <td></td>
+            <td>
+            		<g:link controller="event" action="show" id="${event.id}">Show</g:link>          		
+					<g:link action="edit" id="${event.id}">Edit</g:link>
+			</td>
         </tr>
         </g:each>        
     </table>
