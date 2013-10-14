@@ -15,7 +15,7 @@ environments {
             dbCreate = "update" // one of 'create', 'create-drop','update'
             url = "jdbc:mysql://localhost/mydb?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
-            password = "mEmorex88"
+            password = "123456"
         }
         hibernate {
             show_sql = true
@@ -26,7 +26,7 @@ environments {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
             url = "jdbc:mysql://localhost/mydb?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
-            password = "mEmorex88"
+            password = "123456"
         }
     }
     production {
@@ -34,7 +34,7 @@ environments {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/mydb?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
-            password = "mEmorex88"
+            password = "123456"
         }
     }
 }

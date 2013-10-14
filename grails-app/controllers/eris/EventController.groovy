@@ -25,9 +25,15 @@ class EventController {
 		def eventList = []
 		
 		for (app in appls) {
-			eventList.add(Event.findAllByAppliance(app))	
+			def tmp = Event.findAllByAppliance(app, [sort:"time", order:"asc"])
+			println tmp.time
+			eventList.add(tmp)	
+			
 		}
 		
-		[userEventList: eventList, theuser: u]
+		def columnNamesAct = [['date', 'Time'], ['number', 'Activity level'] ]
+		def columnNamesCon = [['date', 'Time'], ['number', 'Energy consumption'] ] 
+				
+		[userEventList: eventList, theuser: u, columnNamesAct: columnNamesAct, columnNamesCon: columnNamesCon ]
 	}
 }
