@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `eris`.`state` (
   `attitude` DOUBLE NOT NULL,
   `intention` DOUBLE NOT NULL,
   `engagement` DOUBLE NOT NULL,
-  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_state_event1_idx` (`event_id` ASC),
   CONSTRAINT `fk_state_event1`
