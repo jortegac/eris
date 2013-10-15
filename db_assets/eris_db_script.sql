@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `eris`.`state` (
   `intention` DOUBLE NOT NULL,
   `engagement` DOUBLE NOT NULL,
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`, `event_id`),
+  PRIMARY KEY (`id`),
   INDEX `fk_state_event1_idx` (`event_id` ASC),
   CONSTRAINT `fk_state_event1`
     FOREIGN KEY (`event_id`)
@@ -127,15 +127,14 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `eris`.`advice` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `state_id` INT(11) NOT NULL,
-  `state_event_id` INT(11) NOT NULL,
   `message` VARCHAR(500) NOT NULL,
   `is_taken` TINYINT(1) NOT NULL,
   `dateCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  INDEX `fk_advice_state1_idx` (`state_id` ASC, `state_event_id` ASC),
+  INDEX `fk_advice_state1_idx` (`state_id` ASC),
   CONSTRAINT `fk_advice_state1`
-    FOREIGN KEY (`state_id` , `state_event_id`)
-    REFERENCES `eris`.`state` (`id` , `event_id`)
+    FOREIGN KEY (`state_id`)
+    REFERENCES `eris`.`state` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
