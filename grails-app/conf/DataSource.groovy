@@ -13,7 +13,7 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost/mydb?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/eris?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
             password = "123456"
         }
@@ -24,7 +24,7 @@ environments {
     test {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost/mydb?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/eris?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
             password = "123456"
         }
@@ -32,7 +32,7 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/mydb?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/eris?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
             password = "123456"
         }
