@@ -19,7 +19,9 @@ class Event {
 	}
 	
 	def afterInsert() {
-	
+		
+		
+		
 		def lastState = State.findAllByUser(user, [sort:"dateCreated", order:"desc"])[0]
 		
 		def alpha = 0.8
@@ -63,7 +65,6 @@ class Event {
 			newEngagement = 0d
 		}
 	
-		
 		def s = new State(user:user, energyCost:newEnergyCost.round(3), activityLevel:newActivityLevel.round(3), satisfaction:newSatisfaction.round(3), attitude:newAttitude.round(3), intention:newIntention.round(3), engagement:newEngagement.round(3))
 		
 		//println s
@@ -73,6 +74,7 @@ class Event {
 				println it
 			}	
 		}
+		
 	}
 }
 
