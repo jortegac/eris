@@ -48,7 +48,10 @@ enum LineCoreChartConfigOption {
     V_AXIS("vAxis", [DataType.OBJECT]),
     WIDTH("width", [DataType.NUMBER, DataType.STRING]),
     FORCEIFRAME("forceIFrame", [DataType.BOOLEAN]),
-	TRENDLINES("trendlines", [DataType.OBJECT])
+	TRENDLINES("trendlines", [DataType.OBJECT]),
+	ANIMATION_DURATION("animation.duration", [DataType.NUMBER, DataType.STRING]),
+	ANIMATION_EASING("animation.easing", [DataType.NUMBER, DataType.STRING])
+	
 
     static final Map configOptions
 
