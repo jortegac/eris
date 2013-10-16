@@ -30,8 +30,10 @@ CREATE TABLE `advice` (
   `state_event_id` int(11) NOT NULL,
   `message` varchar(500) NOT NULL,
   `is_taken` tinyint(1) NOT NULL,
-  `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `version` bigint(20) NOT NULL,
+  `type` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_advice_state1_idx` (`state_id`,`state_event_id`),
   CONSTRAINT `fk_advice_state1` FOREIGN KEY (`state_id`, `state_event_id`) REFERENCES `state` (`id`, `event_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -59,7 +61,7 @@ CREATE TABLE `appliance` (
   `user_id` int(11) NOT NULL,
   `appliance_type_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `date_of_purchase` datetime DEFAULT NULL,
+  `date_of_purchase` timestamp NULL DEFAULT NULL,
   `expected_consumption` double NOT NULL,
   `version` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
@@ -76,7 +78,7 @@ CREATE TABLE `appliance` (
 
 LOCK TABLES `appliance` WRITE;
 /*!40000 ALTER TABLE `appliance` DISABLE KEYS */;
-INSERT INTO `appliance` VALUES (1,1,1,'Washing machine','2011-11-11 00:00:00',0.5,1),(2,1,2,'Dryer','2011-11-11 00:00:00',0.5,1),(3,1,3,'Dishwasher','2011-11-11 00:00:00',0.5,1),(4,1,4,'Hairdryer','2011-11-11 00:00:00',0.5,1),(5,1,5,'Heating','2011-11-11 00:00:00',0.5,1),(6,1,6,'Iron','2011-11-11 00:00:00',0.5,1),(7,1,7,'Lighting','2011-11-11 00:00:00',0.5,1),(8,1,8,'Laptop','2011-11-11 00:00:00',0.5,1),(9,1,9,'TV','2011-11-11 00:00:00',0.5,1),(10,1,10,'Refrigerator ','2011-11-11 00:00:00',0.5,1);
+INSERT INTO `appliance` VALUES (1,1,1,'Washing machine','2011-11-10 23:00:00',0.5,1),(2,1,2,'Dryer','2011-11-10 23:00:00',0.5,1),(3,1,3,'Dishwasher','2011-11-10 23:00:00',0.5,1),(4,1,4,'Hairdryer','2011-11-10 23:00:00',0.5,1),(5,1,5,'Heating','2011-11-10 23:00:00',0.5,1),(6,1,6,'Iron','2011-11-10 23:00:00',0.5,1),(7,1,7,'Lighting','2011-11-10 23:00:00',0.5,1),(8,1,8,'Laptop','2011-11-10 23:00:00',0.5,1),(9,1,9,'TV','2011-11-10 23:00:00',0.5,1),(10,1,10,'Refrigerator ','2011-11-10 23:00:00',0.5,1);
 /*!40000 ALTER TABLE `appliance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +122,7 @@ CREATE TABLE `event` (
   `appliance_id` int(11) NOT NULL,
   `running_time` double NOT NULL,
   `energy_consumption` double NOT NULL,
-  `time` datetime NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `version` bigint(20) NOT NULL,
   `activity_level` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -128,7 +130,7 @@ CREATE TABLE `event` (
   KEY `fk_event_appliance1_idx` (`appliance_id`),
   CONSTRAINT `fk_event_appliance1` FOREIGN KEY (`appliance_id`) REFERENCES `appliance` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_event_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,7 +139,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,1,1,2,900,'2013-10-02 10:00:00',1,1),(2,1,8,7,400,'2013-10-02 12:00:00',1,1),(3,1,3,2,3300,'2013-10-02 14:00:00',1,1),(4,1,1,2,900,'2013-10-02 16:00:00',1,1),(5,1,10,24,2000,'2013-10-02 21:00:00',1,1),(6,1,3,2,3300,'2013-10-02 23:00:00',1,1);
+INSERT INTO `event` VALUES (1,1,1,2,900,'2013-10-01 22:00:00',2,1),(2,1,8,7,400,'2013-10-02 10:00:00',1,1),(3,1,3,2,3300,'2013-10-02 12:00:00',1,1),(4,1,1,2,900,'2013-10-02 14:00:00',1,1),(5,1,10,24,2000,'2013-10-02 19:00:00',1,1),(6,1,3,2,3300,'2013-10-02 21:00:00',1,1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,6 +161,8 @@ CREATE TABLE `state` (
   `engagement` double NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `version` bigint(20) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`,`event_id`),
   KEY `fk_state_event1_idx` (`event_id`),
   CONSTRAINT `fk_state_event1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -188,8 +192,8 @@ CREATE TABLE `user` (
   `password` varchar(32) NOT NULL,
   `age` int(11) DEFAULT NULL,
   `gender` varchar(1) DEFAULT NULL,
-  `dateCreated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `lastUpdated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `version` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -214,4 +218,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-16 16:52:20
+-- Dump completed on 2013-10-16 19:27:46
