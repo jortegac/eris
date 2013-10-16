@@ -2,7 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-DROP SCHEMA IF EXISTS `eris` ;
 CREATE SCHEMA IF NOT EXISTS `eris` DEFAULT CHARACTER SET utf8 ;
 USE `eris` ;
 
@@ -76,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `eris`.`event` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `appliance_id` INT(11) NOT NULL,
-  `running_time` INT(11) NOT NULL,
+  `running_time` DOUBLE NOT NULL,
   `energy_consumption` DOUBLE NOT NULL,
   `time` DATETIME NOT NULL,
   `version` BIGINT(20) NOT NULL,
@@ -94,8 +93,7 @@ CREATE TABLE IF NOT EXISTS `eris`.`event` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 102
-DEFAULT CHARACTER SET = utf8;
+AUTO_INCREMENT = 102;
 
 
 -- -----------------------------------------------------
@@ -127,15 +125,22 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `eris`.`advice` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
+  `appliance_type_id` INT NOT NULL,
   `type` INT NOT NULL,
   `message` VARCHAR(500) NOT NULL,
   `is_taken` TINYINT(1) NOT NULL,
   `dateCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_advice_user1_idx` (`user_id` ASC),
+  INDEX `fk_advice_appliance_type_idx` (`appliance_type_id` ASC),
   CONSTRAINT `fk_advice_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `eris`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_advice_appliance_type`
+    FOREIGN KEY (`appliance_type_id`)
+    REFERENCES `eris`.`appliance_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
