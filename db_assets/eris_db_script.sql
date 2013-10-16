@@ -102,8 +102,8 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `eris`.`state`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eris`.`state` (
-  `id` INT(11) NOT NULL,
-  `event_id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
   `activity_level` DOUBLE NOT NULL,
   `energy_cost` DOUBLE NOT NULL,
   `satisfaction` DOUBLE NOT NULL,
@@ -112,10 +112,10 @@ CREATE TABLE IF NOT EXISTS `eris`.`state` (
   `engagement` DOUBLE NOT NULL,
   `dateCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  INDEX `fk_state_event1_idx` (`event_id` ASC),
-  CONSTRAINT `fk_state_event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `eris`.`event` (`id`)
+  INDEX `fk_state_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_state_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `eris`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -127,9 +127,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `eris`.`advice` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `state_id` INT(11) NOT NULL,
+  `type` INT NOT NULL,
   `message` VARCHAR(500) NOT NULL,
   `is_taken` TINYINT(1) NOT NULL,
   `dateCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `advicecol` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_advice_state1_idx` (`state_id` ASC),
   CONSTRAINT `fk_advice_state1`
