@@ -19,5 +19,6 @@ class AdviceController {
 		def advice = Advice.get(params.id)
 		advice.isTaken = true
 		advice.save()
+		redirect(action: "index")
 	}
 }

@@ -37,6 +37,7 @@
             		<li><g:link action="edit" id="${user.id}">Edit</g:link></li> 
             		<li><g:link controller="event" action="report" id="${user.id}">View report</g:link></li>
             		<li><g:link controller="event" class="create" id="${user.id}" action="create">New event</g:link></li>
+					<li><g:link controller="state" action="report" id="${user.id}" >View state</g:link></li>  
 					<li><g:link controller="advice" class="index" id="${user.id}" >View advice</g:link></li>            		
             	</ul>
            	</td>

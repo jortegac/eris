@@ -18,12 +18,14 @@
         <tr>
             <td>Name</td>
             <td>Average consumption</td>
+			<td>Average usage</td>
             <td>Actions</td>    
         </tr>
         <g:each in="${applianceTypeInstanceList}" var="applianceType">
         <tr>
             <td><g:link action="show" id="${applianceType.id}">${applianceType.name}</g:link></td>
             <td>${applianceType.averageConsumption}</td>
+			<td>${applianceType.averageUsage}</td>
             <td><g:link action="edit" id="${applianceType.id}">Edit</g:link></td>                
         </tr>
         </g:each>        
