@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 <meta name="layout" content="main"/>
-    <title>Events</title>
+    <title>Human state</title>
 </head>
 <body>
 <div class="nav" role="navigation">

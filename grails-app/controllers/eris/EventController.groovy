@@ -26,7 +26,6 @@ class EventController {
 		
 		for (app in appls) {
 			def tmp = Event.findAllByAppliance(app, [sort:"time", order:"asc"])
-			println tmp.time
 			eventList.add(tmp)	
 			
 		}
@@ -35,5 +34,9 @@ class EventController {
 		def columnNamesCon = [['date', 'Time'], ['number', 'Energy consumption'] ] 
 				
 		[userEventList: eventList, theuser: u, columnNamesAct: columnNamesAct, columnNamesCon: columnNamesCon ]
+	}
+	
+	def dummydata() {
+		
 	}
 }

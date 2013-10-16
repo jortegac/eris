@@ -18,7 +18,6 @@ class Advice {
 	def afterUpdate() {
 		if(isTaken){
 		
-		
 			StateService.takeAdvice(user, type)
 		}
 	}

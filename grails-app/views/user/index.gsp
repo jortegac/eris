@@ -16,18 +16,14 @@
     <table>
         <tr>
             <td>Name</td>
-            <td>Email</td>
             <td>Age</td>
             <td>Gender</td>
-            <td>Appliances</td>
-            <td>Date created</td>
-            <td>Last updated</td>        
+            <td>Appliances</td>     
             <td>Actions</td>    
         </tr>
         <g:each in="${userInstanceList}" var="user">
         <tr>
             <td><g:link action="show" id="${user.id}">${user.name}</g:link></td>
-            <td>${user.email}</td>
             <td>${user.age}</td>
             <td>${user.gender}</td>
             <td>
@@ -36,14 +32,12 @@
             		<br/>
         		</g:each>
        		</td> 
-            <td>${user.dateCreated}</td>
-            <td>${user.lastUpdated}</td>
             <td>
             	<ul>
             		<li><g:link action="edit" id="${user.id}">Edit</g:link></li> 
             		<li><g:link controller="event" action="report" id="${user.id}">View report</g:link></li>
             		<li><g:link controller="event" class="create" id="${user.id}" action="create">New event</g:link></li>
-            		
+					<li><g:link controller="advice" class="index" id="${user.id}" >View advice</g:link></li>            		
             	</ul>
            	</td>
                 
