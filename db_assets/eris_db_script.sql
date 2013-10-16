@@ -126,17 +126,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eris`.`advice` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `state_id` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `type` INT NOT NULL,
   `message` VARCHAR(500) NOT NULL,
   `is_taken` TINYINT(1) NOT NULL,
   `dateCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `advicecol` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_advice_state1_idx` (`state_id` ASC),
-  CONSTRAINT `fk_advice_state1`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `eris`.`state` (`id`)
+  INDEX `fk_advice_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_advice_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `eris`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
