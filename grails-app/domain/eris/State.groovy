@@ -23,15 +23,15 @@ class State {
 	
 	def afterInsert() {
 		if (engagement < 0.5){
-			
+				
 			new Advice(user:user, type:1, message:"Motivational message", isTaken:false).save()
 		
 			if(energyCost > 0.5){
-				new Advice(user:user, type:2, message:"Using too much energy message", isTaken:false).save()
+				new Advice(user:user, type:2, message: " Using too much energy message", isTaken:false).save()
 			}
 			
 			if(activityLevel > 0.5){
-				new Advice(user:user, type:3, message:"Using appliance too much message", isTaken:false).save()
+				new Advice(user:user, type:3, message: "Using too many times message", isTaken:false).save()
 			}
 			
 			if(satisfaction < 0.5){
@@ -47,4 +47,5 @@ class State {
 			}
 		}
 	}
+	
 }
