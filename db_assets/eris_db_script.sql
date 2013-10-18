@@ -4,7 +4,7 @@ USE `eris`;
 --
 -- Host: localhost    Database: eris
 -- ------------------------------------------------------
--- Server version	5.6.14
+-- Server version	5.6.14-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,18 +26,16 @@ DROP TABLE IF EXISTS `advice`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `advice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `state_id` int(11) NOT NULL,
-  `state_event_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
   `message` varchar(500) NOT NULL,
   `is_taken` tinyint(1) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `version` bigint(20) NOT NULL,
-  `type` int(11) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_advice_state1_idx` (`state_id`,`state_event_id`),
-  CONSTRAINT `fk_advice_state1` FOREIGN KEY (`state_id`, `state_event_id`) REFERENCES `state` (`id`, `event_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `fk_advice_user1_idx` (`user_id`),
+  CONSTRAINT `fk_advice_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6056 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +59,7 @@ CREATE TABLE `appliance` (
   `user_id` int(11) NOT NULL,
   `appliance_type_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `date_of_purchase` timestamp NULL DEFAULT NULL,
+  `date_of_purchase` datetime DEFAULT NULL,
   `expected_consumption` double NOT NULL,
   `version` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
@@ -69,7 +67,7 @@ CREATE TABLE `appliance` (
   KEY `fk_appliance_appliance_type1_idx` (`appliance_type_id`),
   CONSTRAINT `fk_appliance_appliance_type1` FOREIGN KEY (`appliance_type_id`) REFERENCES `appliance_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_appliance_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +76,7 @@ CREATE TABLE `appliance` (
 
 LOCK TABLES `appliance` WRITE;
 /*!40000 ALTER TABLE `appliance` DISABLE KEYS */;
-INSERT INTO `appliance` VALUES (1,1,1,'Washing machine','2011-11-10 23:00:00',0.5,1),(2,1,2,'Dryer','2011-11-10 23:00:00',0.5,1),(3,1,3,'Dishwasher','2011-11-10 23:00:00',0.5,1),(4,1,4,'Hairdryer','2011-11-10 23:00:00',0.5,1),(5,1,5,'Heating','2011-11-10 23:00:00',0.5,1),(6,1,6,'Iron','2011-11-10 23:00:00',0.5,1),(7,1,7,'Lighting','2011-11-10 23:00:00',0.5,1),(8,1,8,'Laptop','2011-11-10 23:00:00',0.5,1),(9,1,9,'TV','2011-11-10 23:00:00',0.5,1),(10,1,10,'Refrigerator ','2011-11-10 23:00:00',0.5,1);
+INSERT INTO `appliance` VALUES (21,3,13,'Washing machine','2008-10-16 00:00:00',1700,0),(22,3,11,'Dryer','2006-04-10 00:00:00',2800,0),(23,3,14,'Dishwasher','2005-03-01 00:00:00',2300,0);
 /*!40000 ALTER TABLE `appliance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +94,7 @@ CREATE TABLE `appliance_type` (
   `average_usage` double NOT NULL,
   `version` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +103,7 @@ CREATE TABLE `appliance_type` (
 
 LOCK TABLES `appliance_type` WRITE;
 /*!40000 ALTER TABLE `appliance_type` DISABLE KEYS */;
-INSERT INTO `appliance_type` VALUES (1,'Washing machine',400,4,1),(2,'Dryer',3000,3,1),(3,'Dishwasher',1800,5,1),(4,'Hairdryer',1800,1,1),(5,'Heating',1500,168,1),(6,'Iron',1000,1,1),(7,'Lighting',30,60,1),(8,'Laptop',50,30,1),(9,'TV',200,20,1),(10,'Refrigerator',50,168,1);
+INSERT INTO `appliance_type` VALUES (11,'DryerType',2500,2,2),(13,'WashingMachineType',1500,4,8),(14,'DishwasherType',2000,3,0);
 /*!40000 ALTER TABLE `appliance_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +120,7 @@ CREATE TABLE `event` (
   `appliance_id` int(11) NOT NULL,
   `running_time` double NOT NULL,
   `energy_consumption` double NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `time` datetime NOT NULL,
   `version` bigint(20) NOT NULL,
   `activity_level` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -130,7 +128,7 @@ CREATE TABLE `event` (
   KEY `fk_event_appliance1_idx` (`appliance_id`),
   CONSTRAINT `fk_event_appliance1` FOREIGN KEY (`appliance_id`) REFERENCES `appliance` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_event_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=992 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +137,6 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,1,1,2,900,'2013-10-01 22:00:00',2,1),(2,1,8,7,400,'2013-10-02 10:00:00',1,1),(3,1,3,2,3300,'2013-10-02 12:00:00',1,1),(4,1,1,2,900,'2013-10-02 14:00:00',1,1),(5,1,10,24,2000,'2013-10-02 19:00:00',1,1),(6,1,3,2,3300,'2013-10-02 21:00:00',1,1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,22 +148,20 @@ DROP TABLE IF EXISTS `state`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `state` (
-  `id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
   `activity_level` double NOT NULL,
   `energy_cost` double NOT NULL,
   `satisfaction` double NOT NULL,
   `attitude` double NOT NULL,
   `intention` double NOT NULL,
   `engagement` double NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `version` bigint(20) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`,`event_id`),
-  KEY `fk_state_event1_idx` (`event_id`),
-  CONSTRAINT `fk_state_event1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `fk_state_user1_idx` (`user_id`),
+  CONSTRAINT `fk_state_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5271 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,6 +170,7 @@ CREATE TABLE `state` (
 
 LOCK TABLES `state` WRITE;
 /*!40000 ALTER TABLE `state` DISABLE KEYS */;
+INSERT INTO `state` VALUES (1,3,0.5,0.5,0.5,0.5,0.5,0.5,'2013-10-16 17:41:59',0);
 /*!40000 ALTER TABLE `state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +192,7 @@ CREATE TABLE `user` (
   `last_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `version` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,7 +201,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Tom Unaware','tom@unaware.com','123456',34,'m','2011-11-10 23:00:00','2011-11-10 23:00:00',1);
+INSERT INTO `user` VALUES (3,'John Smith','jortegac@gmail.com','123456',25,'M','2013-10-16 17:34:58','2013-10-16 17:34:58',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -218,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-16 19:27:46
+-- Dump completed on 2013-10-18 11:03:44
