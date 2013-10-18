@@ -36,10 +36,9 @@ class EventController {
 		[userEventList: eventList, theuser: u, columnNamesAct: columnNamesAct, columnNamesCon: columnNamesCon ]
 	}
 	
-	def dummydata() {
+	def initial(){
+		def user = User.get(params.id)
 		
-		def user = User.get(3)
-	
 		new Event(user:user, appliance:Appliance.get(23), activityLevel:2, energyConsumption: 1590, runningTime: 120, time:Date.parse("yyyy-MM-dd", "2011-03-01")).save()
 		new Event(user:user, appliance:Appliance.get(23), activityLevel:2, energyConsumption: 854, runningTime: 142, time:Date.parse("yyyy-MM-dd", "2011-03-08")).save()
 		new Event(user:user, appliance:Appliance.get(23), activityLevel:4, energyConsumption: 1876, runningTime: 256, time:Date.parse("yyyy-MM-dd", "2011-03-15")).save()
@@ -50,7 +49,23 @@ class EventController {
 		new Event(user:user, appliance:Appliance.get(23), activityLevel:3, energyConsumption: 1347, runningTime: 207, time:Date.parse("yyyy-MM-dd", "2011-04-19")).save()
 		new Event(user:user, appliance:Appliance.get(22), activityLevel:2, energyConsumption: 906, runningTime: 154, time:Date.parse("yyyy-MM-dd", "2011-04-26")).save()
 		new Event(user:user, appliance:Appliance.get(22), activityLevel:3, energyConsumption: 1443, runningTime: 225, time:Date.parse("yyyy-MM-dd", "2011-05-03")).save()
+		
+		redirect(controller: "user", action: "index")
+	}
+	
+	def initialadvice(){
+	
+		def user = User.get(params.id)
+	
 		StateService.takeAllAdvice(user)
+		
+		redirect(controller: "user", action: "index")
+	}
+	
+	def dummydata() {
+		
+		def user = User.get(params.id)
+	
 		new Event(user:user, appliance:Appliance.get(22), activityLevel:5, energyConsumption: 2455, runningTime: 380, time:Date.parse("yyyy-MM-dd", "2011-05-10")).save()
 		new Event(user:user, appliance:Appliance.get(23), activityLevel:2, energyConsumption: 854, runningTime: 140, time:Date.parse("yyyy-MM-dd", "2011-05-17")).save()
 		new Event(user:user, appliance:Appliance.get(23), activityLevel:3, energyConsumption: 1290, runningTime: 204, time:Date.parse("yyyy-MM-dd", "2011-05-24")).save()
@@ -193,7 +208,7 @@ class EventController {
 		new Event(user:user, appliance:Appliance.get(21), activityLevel:4, energyConsumption: 1724, runningTime: 252, time:Date.parse("yyyy-MM-dd", "2013-10-15")).save()
 		StateService.takeAllAdvice(user)
 		
-		redirect(action: "index")
+		redirect(controller: "user", action: "index")
 	}
 	
 
